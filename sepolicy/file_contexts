@@ -14,7 +14,7 @@
 /sys/devices/soc.0/qpnp-flash-led-23/leds/flashlight/brightness       u:object_r:sysfs_flashlight:s0
 
 # HALs
-/(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service.xiaomi_8956       u:object_r:hal_ir_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service\.xiaomi_8956       u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.0-service-custom u:object_r:hal_fingerprint_default_exec:s0
 
 # Legacy paths
