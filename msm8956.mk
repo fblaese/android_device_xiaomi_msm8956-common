@@ -285,7 +285,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.sh \
-    init.qcom.post_boot.sh
+    init.qcom.post_boot.sh \
+    init.qcom.bt.sh
 
 PRODUCT_PACKAGES += \
     init.qcom.rc \
