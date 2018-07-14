@@ -1906,7 +1906,7 @@ int QCameraMuxer::getNumberOfCameras()
  *              none-zero failure code
  *==========================================================================*/
 int QCameraMuxer::getCameraInfo(int camera_id,
-        struct camera_info *info, cam_sync_type_t *p_cam_type)
+        struct camera_info *info, __unused cam_sync_type_t *p_cam_type)
 {
     int rc = NO_ERROR;
     CDBG_HIGH("%s: E, camera_id = %d", __func__, camera_id);
