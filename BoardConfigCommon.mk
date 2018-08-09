@@ -18,6 +18,7 @@
 VENDOR_PATH := device/xiaomi/msm8956-common
 
 TARGET_SPECIFIC_HEADER_PATH := $(VENDOR_PATH)/include
+INTERNAL_LOCAL_CLANG_EXCEPTION_PROJECTS := $(VENDOR_PATH)/
 
 # Architecture
 TARGET_ARCH := arm64
@@ -164,7 +165,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Lineage Hardware
 BOARD_HARDWARE_CLASS += \
-    $(VENDOR_PATH)/lineagehw
+    $(VENDOR_PATH)/mkhw
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
