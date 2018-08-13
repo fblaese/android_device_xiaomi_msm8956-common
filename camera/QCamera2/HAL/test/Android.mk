@@ -38,14 +38,15 @@ LOCAL_C_INCLUDES += \
     external/skia/include/images \
     $(TARGET_OUT_HEADERS)/qcom/display \
     device/xiaomi/msm8956-common/camera/QCamera2/stack/common \
+    device/xiaomi/msm8956-common/camera/QCamera2/stack/mm-camera-interface/inc \
     frameworks/av/include/media/stagefright \
     frameworks/native/include/media/openmax \
     $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
 LOCAL_MODULE:= camera_test
 LOCAL_MODULE_TAGS:= tests
-LOCAL_VENDOR_MODULE := true
 
 LOCAL_CFLAGS += -Wall -Wextra -Werror -Wno-unused-parameter
 LOCAL_CFLAGS += -O0
@@ -54,10 +55,10 @@ ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) >= 20 ))" )))
 
 LOCAL_CFLAGS += -DUSE_SDK_20_OR_HIGHER
 
+ifeq ($(TARGET_USES_AOSP),true)
+LOCAL_CFLAGS += -DVANILLA_HAL
 endif
 
-ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) <= 22 ))" )))
-LOCAL_CFLAGS += -DUSE_L_MR1
 endif
 
-include $(BUILD_EXECUTABLE)
+#include $(BUILD_EXECUTABLE)

@@ -15,7 +15,10 @@ ifeq ($(strip $(TARGET_USES_ION)),true)
 LOCAL_CFLAGS += -DUSE_ION
 endif
 
-LOCAL_CFLAGS += -D_ANDROID_
+LOCAL_CFLAGS += -D_ANDROID_ -DQCAMERA_REDEFINE_LOG
+
+# System header file path prefix
+LOCAL_CFLAGS += -DSYSTEM_HEADER_PREFIX=sys
 
 LOCAL_SRC_FILES:= \
         src/mm_qcamera_main_menu.c \
@@ -35,6 +38,7 @@ LOCAL_C_INCLUDES:=$(LOCAL_PATH)/inc
 LOCAL_C_INCLUDES+= \
         frameworks/native/include/media/openmax \
         $(LOCAL_PATH)/../common \
+        $(LOCAL_PATH)/../mm-camera-interface/inc \
         $(LOCAL_PATH)/../../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../../mm-image-codec/qomx_core
 
@@ -54,7 +58,7 @@ else ifeq ($(TARGET_BOARD_PLATFORM),msm8994)
         LOCAL_CFLAGS += -DCAMERA_ION_FALLBACK_HEAP_ID=ION_IOMMU_HEAP_ID
         LOCAL_CFLAGS += -DCAMERA_GRALLOC_CACHING_ID=0
         LOCAL_CFLAGS += -DNUM_RECORDING_BUFFERS=9
-else ifeq ($(TARGET_BOARD_PLATFORM),msm8916 msm8952)
+else ifeq ($(TARGET_BOARD_PLATFORM),msm8916 msm8952 msm8937 msm8953)
         LOCAL_CFLAGS += -DCAMERA_ION_FALLBACK_HEAP_ID=ION_IOMMU_HEAP_ID
         LOCAL_CFLAGS += -DCAMERA_GRALLOC_CACHING_ID=0
         LOCAL_CFLAGS += -DNUM_RECORDING_BUFFERS=9
@@ -82,14 +86,13 @@ endif
 LOCAL_CFLAGS += -Wall -Wextra -Werror
 
 LOCAL_SHARED_LIBRARIES:= \
-         libcutils libdl libmmcamera_interface
+         libcutils libdl libmmcamera_interface liblog
 
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
 
 LOCAL_MODULE:= mm-qcamera-app
-LOCAL_VENDOR_MODULE := true
 
 include $(BUILD_EXECUTABLE)
 
@@ -106,7 +109,10 @@ ifeq ($(strip $(TARGET_USES_ION)),true)
 LOCAL_CFLAGS += -DUSE_ION
 endif
 
-LOCAL_CFLAGS += -D_ANDROID_
+LOCAL_CFLAGS += -D_ANDROID_ -DQCAMERA_REDEFINE_LOG
+
+# System header file path prefix
+LOCAL_CFLAGS += -DSYSTEM_HEADER_PREFIX=sys
 
 LOCAL_SRC_FILES:= \
         src/mm_qcamera_main_menu.c \
@@ -126,6 +132,7 @@ LOCAL_C_INCLUDES:=$(LOCAL_PATH)/inc
 LOCAL_C_INCLUDES+= \
         frameworks/native/include/media/openmax \
         $(LOCAL_PATH)/../common \
+        $(LOCAL_PATH)/../mm-camera-interface/inc \
         $(LOCAL_PATH)/../../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../../mm-image-codec/qomx_core
 
@@ -145,7 +152,7 @@ else ifeq ($(TARGET_BOARD_PLATFORM),msm8994)
         LOCAL_CFLAGS += -DCAMERA_ION_FALLBACK_HEAP_ID=ION_IOMMU_HEAP_ID
         LOCAL_CFLAGS += -DCAMERA_GRALLOC_CACHING_ID=0
         LOCAL_CFLAGS += -DNUM_RECORDING_BUFFERS=9
-else ifeq ($(TARGET_BOARD_PLATFORM),msm8916 msm8952)
+else ifeq ($(TARGET_BOARD_PLATFORM),msm8916 msm8952 msm8937 msm8953)
         LOCAL_CFLAGS += -DCAMERA_ION_FALLBACK_HEAP_ID=ION_IOMMU_HEAP_ID
         LOCAL_CFLAGS += -DCAMERA_GRALLOC_CACHING_ID=0
         LOCAL_CFLAGS += -DNUM_RECORDING_BUFFERS=9
@@ -170,16 +177,17 @@ else
         LOCAL_CFLAGS += -DCAMERA_ION_FALLBACK_HEAP_ID=ION_CAMERA_HEAP_ID
         LOCAL_CFLAGS += -DNUM_RECORDING_BUFFERS=5
 endif
-LOCAL_CFLAGS += -Wall -Wextra
+LOCAL_CFLAGS += -Wall -Wextra -Werror
 
 LOCAL_SHARED_LIBRARIES:= \
-         libcutils libdl libmmcamera_interface
+         libcutils libdl libmmcamera_interface liblog
 
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
 
 LOCAL_MODULE:= libmm-qcamera
-LOCAL_VENDOR_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)
+
+LOCAL_PATH := $(OLD_LOCAL_PATH)
